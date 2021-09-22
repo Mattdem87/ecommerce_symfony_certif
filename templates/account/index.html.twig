@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - ShoesShp{% endblock %}
+
+{% block content %}
+
+    <h1>Mon compte</h1>
+
+    Bienvenue {{ app.user.firstname }} dans votre compte !!! 
+    <br>
+    C'est dans cette espace que vous allez pouvoir gérer toutes vos informations personnelles.
+
+    <br>
+
+    <a href="{{ path('account_password') }}">Modifier mon mot de passe</a>
+
+
+{% endblock %}
