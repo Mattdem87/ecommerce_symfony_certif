@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes adresses  - ShoesShp
+{% endblock %}
+
+{% block content %}
+
+	<br><br>
+
+	<a class="btn btn-info btn-sm float-right" href="{{ path('account_adresse_add') }}">Ajouter une adresse</a>
+
+	<h1>Mes adresses</h1>
+
+	Bienvenue
+	{{ app.user.firstname }}
+	dans votre compte !!!
+	<br>
+	C'est dans cette espace que vous allez pouvoir gérer vos adresses personnelles.
+
+	<br><br>
+
+	<a class="btn btn-primary" href="{{ path('account') }}">Retour à mon compte</a>
+	<br>
+
+	{# <a href="{{ path('#') }}">Modifier mon adresse</a> #}
+	{% if app.user.adresses | length == 0 %}
+
+		<p class="text-center">
+			Vous n'avez pas ajouté d'adresse dans votre compte client. Pour en ajouter une, veuillez
+			<a href="">cliquez ici</a>
+		</p>
+
+	{% else %}
+
+		<div class="row">
+
+			<div class="col-md-4">
+				{% for adresse in app.user.adresses %}
+
+					<div class="card" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title">{{ adresse.name }}</h5>
+							<p class="card-text">
+
+								{{ adresse.adresse }}, <br>
+
+                                {{ adresse.codePostal }} - {{ adresse.city }} - {{ adresse.pays }}
+                            </p>
+							<a href="{{ path('account_adresse_modifier', { 'id' : adresse.id}) }}" >Modifer</a> | <a href="{{ path('account_adresse_supprimer', { 'id' : adresse.id}) }}" >Supprimer</a>
+						</div>
+					</div>
+            </div>
+            {% endfor %}
+		</div>
+
+	{% endif %}
+
+{% endblock %}

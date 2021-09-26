@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer mes adresses  - ShoesShop
+{% endblock %}
+
+{% block content %}
+
+	<br><br>
+
+	<h1>Ajouter une adresse</h1>
+
+	<a class="btn btn-primary btn-sm float-right" href="{{ path('account_adresse') }}">Retour</a>
+	<br>
+
+	{{ form_start(form)}}
+	<div class="row">
+        <div class="col-md-12">{{ form_row(form.name) }}</div>
+
+		<div class="col-md-6">{{ form_row(form.firstname) }}</div>
+
+		<div class="col-md-6">{{ form_row(form.lastname) }}</div>
+
+        <div class="col-md-6">{{ form_row(form.companie) }}</div>
+
+        <div class="col-md-6">{{ form_row(form.adresse) }}</div>
+
+        <div class="col-md-6">{{ form_row(form.codePostal) }}</div>
+
+        <div class="col-md-6">{{ form_row(form.city) }}</div>
+
+        <div class="col-md-6">{{ form_row(form.pays) }}</div>
+
+        <div class="col-md-6">{{ form_row(form.telephone) }}</div>
+	</div>
+
+
+	{{ form_end(form)}}
+
+{% endblock %}

@@ -68,20 +68,4 @@ class Cart
         return $this->session->set('cart', $cart);
     }
 
-    public function getFull()
-    {
-        $cartComplet = [];
-
-        if ($this->get())
-        {
-            foreach ($this->get() as $id => $quantity)
-            {
-                $cartComplet[] = [
-                    'product' => $this->entityManager->getRepository(Product::class)->findOneById($id),
-                    'quantity' => $quantity
-                ]; 
-            }
-        }
-        return $cartComplet;
-    }
 }
