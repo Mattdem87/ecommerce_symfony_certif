@@ -14,7 +14,7 @@ class Cart
     public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)
     {
         $this->session = $session;
-        $this->entity = $entityManager;
+        $this->entityManager = $entityManager;
     }
 
     public function add($id)
@@ -66,6 +66,23 @@ class Cart
         }
 
         return $this->session->set('cart', $cart);
+    }
+
+    public function getFull()
+    {
+        $cartComplet = [];
+
+        if($this->get())
+        {
+            foreach($this->get() as $id => $quantity)
+            {
+                $cartComplet[] = [
+                    'product' => $this->entityManager->getRepository(Product::class)->find($id),
+                    'quantity' => $quantity
+                ];
+            }
+        }
+        return $cartComplet;
     }
 
 }

@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Classe\Cart;
-use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,21 +21,9 @@ class CartController extends AbstractController
     #[Route('/panier', name: 'cart')]
     public function index(Cart $cart): Response
     {
-        $cartComplet = [];
-
-        if($cart->get())
-        {
-            foreach($cart->get() as $id => $quantity)
-            {
-                $cartComplet[] = [
-                    'product' => $this->entityManager->getRepository(Product::class)->findOneById($id),
-                    'quantity' => $quantity
-                ];
-            }
-        }
 
         return $this->render('cart/index.html.twig', [
-            'cart' => $cartComplet
+            'cart' => $cart->getFull()
         ]);
     }
 

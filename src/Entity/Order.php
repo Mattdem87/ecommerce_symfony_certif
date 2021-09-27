@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -27,7 +27,7 @@ class Order
     private $user;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
@@ -51,9 +51,25 @@ class Order
      */
     private $orderdetails;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $IsPaid;
+
+
     public function __construct()
     {
         $this->orderdetails = new ArrayCollection();
+    }
+
+    public function getTotal()
+    {
+        $total = null;
+
+        foreach ($this->getOrderdetails()->getValues() as $product) {
+            $total = $total + ($product->getPrice() * $product->getQuantity());
+        }
+        return $total;
     }
 
     public function getId(): ?int
@@ -73,12 +89,12 @@ class Order
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -147,6 +163,18 @@ class Order
                 $orderdetail->setMyOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsPaid(): ?bool
+    {
+        return $this->IsPaid;
+    }
+
+    public function setIsPaid(bool $IsPaid): self
+    {
+        $this->IsPaid = $IsPaid;
 
         return $this;
     }

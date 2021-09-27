@@ -51,3 +51,19 @@ body {
     max-width: 600px;
     margin: 0 auto;
 }
+
+.form-ckeck {
+    background-color: beige;
+    padding: 20px;
+    margin-top: 7px;
+}
+
+.col-form-label {
+    font-weight: bold;
+}
+
+.order-summary {
+    background-color: beige;
+    padding: 20px;
+    margin-top: 22px;
+}
