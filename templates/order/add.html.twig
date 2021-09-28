@@ -15,9 +15,9 @@
 
 			<strong>Mon adresse de livraison</strong>
 			<br>
-            <div class="form-check mt-4">
-                {{ delivery|raw}}
-            </div>
+			<div class="form-check mt-4">
+				{{ delivery|raw}}
+			</div>
 
 			<hr>
 
@@ -80,10 +80,15 @@
 		<strong>livraison :
 		</strong>
 		{{ ( carrier.price) | number_format(2, ',', '.')}}€<br>
-		<strong>Total :
-		</strong>
+		<strong>Total :</strong>
 		{{ (( total / 100) + carrier.price) | number_format(2, ',', '.')}}€<br>
-		<a href="" class="btn btn-success btn-block">Payer {{ (( total / 100) + carrier.price) | number_format(2, ',', '.')}}€</a>
+
+		<div>
+			<form action="{{ path('stripe_checkout') }}" method="POST">
+				<button type="submit" id="checkout-button" class="btn btn-success btn-block">Payer
+			{{ (( total / 100) + carrier.price) | number_format(2, ',', '.')}}€</button>
+			</form>
+		</div>
 	</div>
 
 </div>{% endblock %}

@@ -38,6 +38,16 @@ class Cart
         return $this->session->get('cart');
     }
 
+    public function sauvegarderPanier($panier)
+    {
+        $this->session->set('panier', $panier);
+    }
+
+    public function viderPanier()
+    {
+        $this->sauvegarderPanier([]);
+    }
+
     public function remove()
     {
         return $this->session->remove('cart');

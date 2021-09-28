@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use DateTime;
+use Stripe\Stripe;
 use App\Classe\Cart;
 use App\Entity\Order;
-use App\Entity\Orderdetails;
 use App\Form\OrderType;
+use App\Entity\Orderdetails;
+use Stripe\Checkout\Session;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +42,7 @@ class OrderController extends AbstractController
     }
 
 
-    #[Route('/commande/recapitulatif', name: 'order_recap', methods:("POST"))]
+    #[Route('/commande/recapitulatif', name: 'order_recap', methods: ("POST"))]
     public function add(Cart $cart, Request $request): Response
     {
 
@@ -79,8 +81,7 @@ class OrderController extends AbstractController
             $this->entityManager->persist($order);
 
             // enregistrer mes produits
-            foreach ($cart->getFull() as $product) 
-            {
+            foreach ($cart->getFull() as $product) {
                 $orderDetails = new Orderdetails();
                 $orderDetails->setMyOrder($order);
                 $orderDetails->setProduct($product['product']->getName());
@@ -90,7 +91,8 @@ class OrderController extends AbstractController
                 $this->entityManager->persist($orderDetails);
             }
 
-            // $this->entityManager->flush();
+            $this->entityManager->flush();
+
             return $this->render('order/add.html.twig', [
                 'cart' => $cart->getFull(),
                 'carrier' => $carriers,
