@@ -13,11 +13,11 @@ class SuccessController extends AbstractController
     /**
      * @Route("/success", name="payment_success")
      */
-    public function success(Cart $cart, Order $order)
+    public function success(Cart $cart)
     {
        
-        $order->addOrderdetail();
-
+        // $order->add();
+        
         //Je voudrais vider le panier
         $cart->viderPanier();
 
