@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\OrderRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -145,22 +145,22 @@ class Order
         return $this->orderdetails;
     }
 
-    public function addOrderdetail(Orderdetails $orderdetail): self
+    public function addOrderdetail(Orderdetails $orderdetails): self
     {
-        if (!$this->orderdetails->contains($orderdetail)) {
-            $this->orderdetails[] = $orderdetail;
-            $orderdetail->setMyOrder($this);
+        if (!$this->orderdetails->contains($orderdetails)) {
+            $this->orderdetails[] = $orderdetails;
+            $orderdetails->setMyOrder($this);
         }
 
         return $this;
     }
 
-    public function removeOrderdetail(Orderdetails $orderdetail): self
+    public function removeOrderdetail(Orderdetails $orderdetails): self
     {
-        if ($this->orderdetails->removeElement($orderdetail)) {
+        if ($this->orderdetails->removeElement($orderdetails)) {
             // set the owning side to null (unless already changed)
-            if ($orderdetail->getMyOrder() === $this) {
-                $orderdetail->setMyOrder(null);
+            if ($orderdetails->getMyOrder() === $this) {
+                $orderdetails->setMyOrder(null);
             }
         }
 

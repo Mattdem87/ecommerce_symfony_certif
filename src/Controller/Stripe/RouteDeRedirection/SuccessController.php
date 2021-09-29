@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controller\Stripe\RouteDeRedirection;
 
@@ -15,9 +15,6 @@ class SuccessController extends AbstractController
      */
     public function success(Cart $cart)
     {
-       
-        // $order->add();
-        
         //Je voudrais vider le panier
         $cart->viderPanier();
 

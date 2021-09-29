@@ -22,7 +22,7 @@ class OrderCrudController extends AbstractCrudController
     {
         return $actions
             ->add('index', 'detail');
-
+                
     }
 
 

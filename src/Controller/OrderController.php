@@ -3,12 +3,10 @@
 namespace App\Controller;
 
 use DateTime;
-use Stripe\Stripe;
 use App\Classe\Cart;
 use App\Entity\Order;
 use App\Form\OrderType;
 use App\Entity\Orderdetails;
-use Stripe\Checkout\Session;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
