@@ -84,7 +84,7 @@
 		{{ (( total / 100) + carrier.price) | number_format(2, ',', '.')}}€<br>
 
 		<div>
-			<form action="{{ path('stripe_checkout') }}" method="POST">
+			<form action="{{ path('stripe_checkout', {'reference' : reference}) }}" method="POST">
 				<button type="submit" id="checkout-button" class="btn btn-success btn-block">Payer
 			{{ (( total / 100) + carrier.price) | number_format(2, ',', '.')}}€</button>
 			</form>

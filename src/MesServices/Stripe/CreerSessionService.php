@@ -5,6 +5,7 @@ namespace App\MesServices\Stripe;
 use Stripe\Stripe;
 use App\Classe\Cart;
 use Stripe\Checkout\Session;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 
 class CreerSessionService 
@@ -15,11 +16,14 @@ class CreerSessionService
 
     protected $security;
 
-    public function __construct($keySecret, Cart $cart ,Security $security)
+    protected $entityManager;
+
+    public function __construct($keySecret, Cart $cart ,Security $security, EntityManagerInterface $entityManager)
     {
         $this->keySecret = $keySecret;
         $this->cart = $cart;
         $this->security = $security;
+        $this->entityManager = $entityManager;
     }
 
     public function getDomain()
@@ -27,7 +31,7 @@ class CreerSessionService
         return 'https://localhost:8000';
     }
 
-    public function getItems()
+    public function getItems($order)
     {
         $produits_stripe = [];
 
@@ -50,21 +54,27 @@ class CreerSessionService
         return $produits_stripe;
     }
 
-    public function create()
+    public function create($order)
     {
         Stripe::setApiKey($this->keySecret);
 
-        return Session::create([
+        $checkout_session = Session::create([
             'customer_email' => $this->security->getUser()->getEmail(),
             'line_items' => [
-                $this->getItems()
+                $this->getItems($order)
             ],
             'payment_method_types' => [
               'card',
             ],
             'mode' => 'payment',
-            'success_url' => $this->getDomain() . '/success',
-            'cancel_url' => $this->getDomain() . '/cancel',
+            'success_url' => $this->getDomain() . '/success/{CHECKOUT_SESSION_ID}',
+            'cancel_url' => $this->getDomain() . '/cancel/{CHECKOUT_SESSION_ID}',
           ]);
+          
+          $order->setStripeSessionId($checkout_session->id);
+          $this->entityManager->flush();
+          return $checkout_session;
+
     }
+
 }

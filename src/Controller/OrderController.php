@@ -81,6 +81,8 @@ class OrderController extends AbstractController
             // enregistrer mes produits
             foreach ($cart->getFull() as $product) {
                 $orderDetails = new Orderdetails();
+                $reference = $date->format('dmY').'-'.uniqid();
+                $order->setReference($reference);
                 $orderDetails->setMyOrder($order);
                 $orderDetails->setProduct($product['product']->getName());
                 $orderDetails->setQuantity($product['quantity']);
@@ -94,7 +96,8 @@ class OrderController extends AbstractController
             return $this->render('order/add.html.twig', [
                 'cart' => $cart->getFull(),
                 'carrier' => $carriers,
-                'delivery' => $delivery_content
+                'delivery' => $delivery_content,
+                'reference' => $order->getReference()
             ]);
         }
 
