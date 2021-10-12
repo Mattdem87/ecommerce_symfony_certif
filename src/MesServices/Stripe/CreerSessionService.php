@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\MesServices\Stripe;
 
@@ -8,17 +8,17 @@ use Stripe\Checkout\Session;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 
-class CreerSessionService 
+class CreerSessionService
 {
     protected $keySecret;
 
-    protected $panierService;
+    protected $cart;
 
     protected $security;
 
     protected $entityManager;
 
-    public function __construct($keySecret, Cart $cart ,Security $security, EntityManagerInterface $entityManager)
+    public function __construct($keySecret, Cart $cart, Security $security, EntityManagerInterface $entityManager)
     {
         $this->keySecret = $keySecret;
         $this->cart = $cart;
@@ -37,8 +37,7 @@ class CreerSessionService
 
         $products = $this->cart->getFull();
 
-        foreach( $products as $item)
-        {
+        foreach ($products as $item) {
             $produits_stripe[] = [
                 'price_data' => [
                     'currency' => 'eur',
@@ -50,6 +49,16 @@ class CreerSessionService
                 'quantity' => $item['quantity']
             ];
         }
+        $products_stripe[] = [
+            'price_data' => [
+                'currency' => 'eur',
+                'unit_amount' => ($order->getCarrierPrice() * 100),
+                'product_data' => [
+                    'name' => $order->getCarrierName()
+                ]
+            ],
+            'quantity' => 1,
+        ];
 
         return $produits_stripe;
     }
@@ -64,17 +73,15 @@ class CreerSessionService
                 $this->getItems($order)
             ],
             'payment_method_types' => [
-              'card',
+                'card',
             ],
             'mode' => 'payment',
             'success_url' => $this->getDomain() . '/success/{CHECKOUT_SESSION_ID}',
             'cancel_url' => $this->getDomain() . '/cancel/{CHECKOUT_SESSION_ID}',
-          ]);
-          
-          $order->setStripeSessionId($checkout_session->id);
-          $this->entityManager->flush();
-          return $checkout_session;
+        ]);
 
+        $order->setStripeSessionId($checkout_session->id);
+        $this->entityManager->flush();
+        return $checkout_session;
     }
-
 }
