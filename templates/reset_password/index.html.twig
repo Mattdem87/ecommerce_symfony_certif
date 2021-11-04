@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mot de passe oublié _ ShoesShop
+{% endblock %}
+
+{% block content %}
+
+	<div class="block-small">
+		<form method="post">
+
+			<h1 class="h3 mb-3 font-weight-normal">Réinitialiser mon mt de passe</h1>
+			<label for="inputEmail">Email</label>
+			<input type="email" name="email" id="inputEmail" class="form-control" placeholder="Votre email" autocomplete="email" required autofocus>
+
+			<hr>
+			<button class="btn btn-lg btn-primary btn-block mt-3" type="submit">
+				Envoyer
+			</button>
+
+			<hr>
+
+			<p class="text-center">Ou souhaitez-vous  <a href="{{ path('app_login') }}">vous connectez</form>
+	</div>
+
+{% endblock %}
