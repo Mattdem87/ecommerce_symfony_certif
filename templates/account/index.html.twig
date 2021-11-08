@@ -1,23 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon compte - ShoesShp{% endblock %}
+{% block title %}Mon compte - ShoesShp
+{% endblock %}
 
 {% block content %}
 
-    <h1>Mon compte</h1>
+	<h1>Mon compte</h1>
 
-    Bienvenue {{ app.user.firstname }} dans votre compte !!! 
-    <br>
-    C'est dans cette espace que vous allez pouvoir gérer toutes vos informations personnelles.
+	Bienvenue
+	{{ app.user.firstname }}
+	dans votre compte !!!
+	<br>
+	C'est dans cette espace que vous allez pouvoir gérer toutes vos informations personnelles.
 
-    <br><br>
+	<br><br>
+	{% if is_granted('ROLE_ADMIN') %}
+		<a class="btn btn-primary" href="{{ path('admin') }}">Compte administrateur</a>
+	{% endif %}
 
-    <a class="btn btn-primary" href="{{ path('account_password') }}">Modifier mon mot de passe</a>
+	<br><br>
 
-    <br><br>
+	<a class="btn btn-primary" href="{{ path('account_password') }}">Modifier mon mot de passe</a>
 
-    <a class="btn btn-primary" href="{{ path('account_adresse') }}">Gérer mes adresses</a>
+	<br><br>
 
-    <br>
+	<a class="btn btn-primary" href="{{ path('account_adresse') }}">Gérer mes adresses</a>
+
+	<br><br>
+
+	<a class="btn btn-primary" href="{{ path('order') }}">mes commandes</a>
 
 {% endblock %}
