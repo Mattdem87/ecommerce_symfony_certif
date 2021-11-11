@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Classe\Mail;
 use App\Entity\User;
 use App\Entity\ResetPassword;
 use App\Form\ResetPasswordType;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -94,7 +94,7 @@ class ResetPasswordController extends AbstractController
 
             // Redirection de l'utilisateur vers la page de conexion
             $this->addFlash('notice', 'Votre mot de passe a bien été mise à jour.');
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('applogin');
         }
 
         return $this->render('reset_password/update.html.twig', [
