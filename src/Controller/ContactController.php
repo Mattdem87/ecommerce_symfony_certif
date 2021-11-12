@@ -21,10 +21,12 @@ class ContactController extends AbstractController
         {
             $this->addFlash('notice', 'Merci de nous avoir contacté. Nos équipes vous répondra dans le smeilleurs délais.');
 
-            $content = "Bonjour " . $user->getFirstname() . "<br/>Vous avez reçu un message d'un utilisateur de la boutique ShoeShop.<br/><br/>";
-            $mail = new Mail();
-            $mail->send('dembele-matala@live.fr','ShoeShop', 'Vous avez reçu une nouvelle demande de contact', $content);
+            // $content = "Bonjour " . $user->getFirstname() . "<br/>Vous avez reçu un message d'un utilisateur de la boutique ShoeShop.<br/><br/>";
+            // $mail = new Mail();
+            // $mail->send('dembele-matala@live.fr','ShoeShop', 'Vous avez reçu une nouvelle demande de contact', $content);
         }
-        return $this->render('contact/index.html.twig');
+        return $this->render('contact/index.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

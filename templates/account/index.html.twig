@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon compte - ShoesShp
+{% block title %}Mon compte - ShoesShop
 {% endblock %}
 
 {% block content %}
@@ -10,24 +10,38 @@
 	Bienvenue
 	{{ app.user.firstname }}
 	dans votre compte !!!
-	<br>
-	C'est dans cette espace que vous allez pouvoir gérer toutes vos informations personnelles.
-
 	<br><br>
 	{% if is_granted('ROLE_ADMIN') %}
 		<a class="btn btn-primary" href="{{ path('admin') }}">Compte administrateur</a>
 	{% endif %}
+	<br><br>
+	C'est dans cette espace que vous allez pouvoir gérer toutes vos informations personnelles.
 
 	<br><br>
 
-	<a class="btn btn-primary" href="{{ path('account_password') }}">Modifier mon mot de passe</a>
 
-	<br><br>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="account-item text-center">
+			<img src="{{ asset('assets/img/password') }}" alt="Modifier mon mot de passe"><br>
+				<a href="{{ path('account_password') }}">Modifier mon mot de passe</a>
+			</div>
+		</div>
 
-	<a class="btn btn-primary" href="{{ path('account_adresse') }}">Gérer mes adresses</a>
+		<div class="col-md-4">
+			<div class="account-item text-center">
+			<img src="{{ asset('assets/img/adress') }}" alt="Gérer mes adresse"><br>
+				<a href="{{ path('account_adresse') }}">Gérer mes adresses</a>
+			</div>
+		</div>
 
-	<br><br>
+		<div class="col-md-4">
+			<div class="account-item text-center">
+			<img src="{{ asset('assets/img/commande') }}" alt="Mes commandes"><br>
+				<a href="{{ path('order') }}">Mes commandes</a>
+			</div>
+		</div>
 
-	<a class="btn btn-primary" href="{{ path('order') }}">mes commandes</a>
+	</div>
 
 {% endblock %}
