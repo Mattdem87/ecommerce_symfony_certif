@@ -19,7 +19,7 @@ class HeaderCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('title', 'Tritre du header'),
+            TextField::new('title', 'Titre du header'),
             TextareaField::new('content', 'Contenu de notre header'),
             TextField::new('btnTitle', 'Titre de notre bouton'),
             TextField::new('btnUrl', 'Url de destination de notre bouton'),
@@ -29,7 +29,7 @@ class HeaderCrudController extends AbstractCrudController
             ->setUploadDir('public/uploads')
             ->setUploadedFileNamePattern('[randomhash].[extension]')
             ->setRequired(false),
-
+            
         ];
     }
     
