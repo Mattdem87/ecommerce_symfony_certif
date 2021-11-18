@@ -28,8 +28,8 @@ class ProductCrudController extends AbstractCrudController
             SlugField::new('slug')->setTargetFieldName('name'),
 
             ImageField::new('illustration') 
-                ->setBasePath(' uploads')
-                ->setUploadDir('public/uploads')
+                ->setBasePath('/uploads/products')
+                ->setUploadDir('public/uploads/products')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false),
 

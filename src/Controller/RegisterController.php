@@ -4,9 +4,10 @@ namespace App\Controller;
 
 use App\Classe\Mail;
 use App\Entity\User;
+use App\Entity\Header;
 use App\Form\RegisterType;
-use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Stmt\Break_;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,6 +28,7 @@ class RegisterController extends AbstractController
     #[Route('/inscription', name: 'register')]
     public function index(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
+        $headers = $this->entityManager->getRepository(Header::class)->findAll();
         $notification = null;
 
         $user = new User();
@@ -61,7 +63,9 @@ class RegisterController extends AbstractController
         }
         return $this->render('register/index.html.twig', [
             'form' => $form->createView(),
-            'notification' => $notification
+            'notification' => $notification,
+            'headers' => $headers
+
         ]);
     }
 }
