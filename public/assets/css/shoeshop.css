@@ -79,3 +79,9 @@ body {
     color: #f39c12;
     font-weight: bold;
 }
+
+.imageProduct {
+    min-height: 250px;
+    height: 250px;
+    object-fit: cover;
+}
