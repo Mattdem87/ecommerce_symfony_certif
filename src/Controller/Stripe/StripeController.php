@@ -17,12 +17,11 @@ class StripeController extends AbstractController
     {
         $order = $entityManager->getRepository(Order::class)->findByReference($reference);
 
-        if(!$order)
-        {
+        if (!$order) {
             $this->redirectToRoute('order');
         }
 
-        $stripeSessionId = $creerSessionService->create($order);
+        $stripeSessionId = $creerSessionService->create($order[0]);
         return $this->redirect($stripeSessionId->url);
     }
 }

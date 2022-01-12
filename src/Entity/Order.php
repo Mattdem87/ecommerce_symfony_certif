@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Entity;
-use App\Repository\OrderRepository;
-use DateTime;
+
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -65,6 +65,11 @@ class Order
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $stripeSessionId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Carrier::class, inversedBy="commande")
+     */
+    private $carrier;
 
 
     public function __construct()
@@ -209,6 +214,18 @@ class Order
     public function setStripeSessionId(?string $stripeSessionId): self
     {
         $this->stripeSessionId = $stripeSessionId;
+
+        return $this;
+    }
+
+    public function getCarrier(): ?Carrier
+    {
+        return $this->carrier;
+    }
+
+    public function setCarrier(?Carrier $carrier): self
+    {
+        $this->carrier = $carrier;
 
         return $this;
     }

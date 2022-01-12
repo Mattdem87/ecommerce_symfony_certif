@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CarrierRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,17 @@ class Carrier
      * @ORM\Column(type="float")
      */
     private $price;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="carrier")
+     */
+    private $commande;
+
+    public function __construct()
+    {
+        $this->commande = new ArrayCollection();
+    }
+
 
     public function __toString()
     {
@@ -74,6 +87,36 @@ class Carrier
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getCommande(): Collection
+    {
+        return $this->commande;
+    }
+
+    public function addCommande(Order $commande): self
+    {
+        if (!$this->commande->contains($commande)) {
+            $this->commande[] = $commande;
+            $commande->setCarrier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Order $commande): self
+    {
+        if ($this->commande->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getCarrier() === $this) {
+                $commande->setCarrier(null);
+            }
+        }
 
         return $this;
     }
