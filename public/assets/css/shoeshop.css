@@ -14,7 +14,7 @@ body {
     width: 100%;
     background-color: #dfeaff;
     padding-top: 25px;
-    margin-top: 50px ;
+    margin-top: 50px;
 }
 
 .product-container {
@@ -44,7 +44,7 @@ body {
 
 .cart-icon {
     height: 20px;
-    padding-left: 20px ;
+    padding-left: 20px;
 }
 
 .block-small {
@@ -69,14 +69,15 @@ body {
 }
 
 .account-item {
-    background-color: #3498db ;
-    padding : 70px;
+    background-color: #3498db;
+    padding: 70px;
+    color: white;
 }
 
 .account-item {
     text-transform: uppercase;
     font-size: 12px;
-    color: #f39c12;
+    color: black;
     font-weight: bold;
 }
 
